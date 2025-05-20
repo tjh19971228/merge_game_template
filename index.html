@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+
+  <title>clicker</title>
+
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+    content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+  <meta name="360-fullscreen" content="true" />
+
+  <meta name="x5-page-mode" content="app" />
+
+
+  <link rel="stylesheet" type="text/css" href="style.62739.css" />
+</head>
+
+<body>
+  <script>
+    document.body.addEventListener('touchmove', function (event) {
+      event.preventDefault();
+    }, { passive: false });
+  </script>
+
+  <div id="GameDiv" cc_exact_fit_screen="true">
+    <div id="Cocos3dGameContainer">
+      <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="99"></canvas>
+    </div>
+  </div>
+  <div id="splash" style="width: 100;height: 100%;">
+    <img id="home-bg"
+      style="position: fixed;left: 0;top: 0;right: 0;bottom: 0;margin: auto;object-fit: cover;width: 100%;height: 100%;overflow: hidden;"
+      index.a5dba.jssrc="" />
+    <img id="home-loading"
+      style="position: fixed;left: 0;right: 0;z-index: 2;margin: auto;bottom: 10%;object-fit: contain; animation: rotate-animation 1s infinite linear;overflow: hidden;"
+      src="icon-loading.1bbcb.png" />
+  </div>  
+
+  <!-- Polyfills bundle. -->
+  <script src="src/polyfills.bundle.5adbf.js" charset="utf-8"></script>
+
+  <!-- SystemJS support. -->
+  <script src="src/system.bundle.543e6.js" charset="utf-8"></script>
+
+  <!-- Import map -->
+  <script src="src/import-map.53c6e.json" type="systemjs-importmap" charset="utf-8"></script>
+
+  <script>
+    window.web_game = window.web_game || {};
+    window.web_game.startLoadTime = new Date().getTime();
+    window.web_game.env = "product";
+
+    let getUrlParams = function() {
+        let params =  {}
+        let query = window.location.search.substring(1)
+        let vars = query.split('&') 
+        for (let i = 0; i < vars.length; i++) {
+            let pair = vars[i].split('=')
+            let key = decodeURIComponent(pair[0])
+            let value = decodeURIComponent(pair[1])
+            params[key] = value
+        }
+        return params
+    }
+    let params = getUrlParams()
+    if(params.config_domain && params.config_domain.length > 0){
+       //modify element img src = params.config_domain+"/bg.jpg"
+       let homeBg = document.getElementById("home-bg")
+       homeBg.src = params.config_domain+"/bg.jpg"
+       window["indexBgSrc"] = homeBg.src;
+    }
+
+  </script>
+
+  <script>
+    System.import('./index.a5dba.js').then(() => {
+    }).catch(function (err) {
+      console.error(err)
+    })
+  </script>
+</body>
+
+</html>
